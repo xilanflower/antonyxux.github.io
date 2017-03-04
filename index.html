@@ -1,3 +1,47 @@
+<!--
+
+/* 存在问题
+ * 1 英文句子是否有换行，如果有换行，那么需要在替换逗号句号那儿("(?:,|\\.|，|。)", " ")改成("(?:,|\\.|，|。|\\n)", " ")
+ * 2 没有考虑容错
+ * 3 （边框横向长度为最长单词长度+4） 这个有歧义，【**，单词，**】 【*，单词，***】 【***，单词，*】，这三种情况都可以
+ * 4 空白部分是用空格填充还是用*填充，我是用空格填充的
+ */
+
+public class Test {
+	public static void main(String[] args) {
+		String sentense="a b, cd. efg  nhijkl m n ";
+		RectWord(sentense);
+		
+	}
+	
+	public static void RectWord(String sentense){
+		//先将中英文逗号和中英文句号替换成空格，再将多余的空格替换成一个空格，然后按空格分词
+		String[] words=sentense.replaceAll("(?:,|\\.|，|。|\\n)", " ").replaceAll(" {2,}", " ").split(" "); //分出单词
+		int count=words.length;
+		int i,maxLength=0;
+		//得到最长单词的长度
+		for(i=0;i<count;i++)
+		{
+			maxLength=Math.max(maxLength,words[i].length());
+		}
+		//输出首行和首尾**（边框横向长度为最长单词长度+4，首尾各两个*），加上最长单词长度的*，如果最长单词长度为5，首行为 "**"+"*****"+"**"
+		System.out.println("**"+getBlack(maxLength,"*")+"**");
+		//然后输出每行，行首两个星号，加上单词，加上（maxlength-单词长度）星号，然后再加上两个星号
+		for(i=0;i<count;i++){
+			System.out.println("**"+words[i]+getBlack(maxLength-words[i].length()," ")+"**");
+		}
+		//和首行一样
+		System.out.println("**"+getBlack(maxLength,"*")+"**");
+	}
+	public static String getBlack(int length,String fill){
+		String blacks = "";
+		for(int i=0;i<length;i++)
+			blacks+=fill;
+		return blacks;
+	}
+}
+
+-->
 <!doctype html>
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
