@@ -16,7 +16,7 @@ public class Test {
 	
 	public static void RectWord(String sentense){
 		//先将中英文逗号和中英文句号替换成空格，再将多余的空格替换成一个空格，然后按空格分词
-		String[] words=sentense.replaceAll("(?:,|\\.|，|。|\\n)", " ").replaceAll(" {2,}", " ").split(" "); //分出单词
+		String[] words=sentense.replaceAll("(?:,|\\.|，|。", " ").replaceAll(" {2,}", " ").split(" "); //分出单词
 		int count=words.length;
 		int i,maxLength=0;
 		//得到最长单词的长度
